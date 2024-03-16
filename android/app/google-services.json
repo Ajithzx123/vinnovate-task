@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "506515068352",
+    "project_id": "vinnovate-830ad",
+    "storage_bucket": "vinnovate-830ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506515068352:android:693e68f1f388abbf656425",
+        "android_client_info": {
+          "package_name": "com.example.vinnovate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgKcexSl36WvMAPunowHf77bpLd05_bH0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
