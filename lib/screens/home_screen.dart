@@ -16,7 +16,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final scrollcontroller = ScrollController();
   int limit = 10;
-  late Provider provider;
 
   @override
   void initState() {
@@ -46,31 +45,79 @@ class _HomeScreenState extends State<HomeScreen> {
     double height = ResponsiveUtils.screenHeight(context);
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: const Text("Products"),
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(
-              Icons.keyboard_arrow_left_rounded,
-              size: 40,
-            )),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(height * 0.13),
+        child: AppBar(
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          title: const Text("Products"),
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: const Icon(
+                Icons.keyboard_arrow_left_rounded,
+                size: 40,
+              )),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(height * 0.13),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0, right: 20),
+                  child: Container(
+                    height: 50,
+                    // width: 75.w,
+                    decoration: BoxDecoration(
+                      boxShadow: kElevationToShadow[4],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            onChanged: (value) {
+                          
+                                Provider.of<HomeProvider>(context, listen: false).filterItems(value);
+                              
+                            },
+
+                            // controller: controller.searchController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                              ),
+                              hintText: 'Search Here',
+                              hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.w400, fontSize: 15),
+                              contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
       body: Padding(
           padding: EdgeInsets.all(width * 0.04),
           child: Consumer<HomeProvider>(builder: (context, homeProvider, child) {
-            List<ProductModel> product = homeProvider.products;
+            List<ProductModel> product = homeProvider.filteredItems;
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "Showing ${product.length} Products",
-                  style: TextStyle(fontWeight: FontWeight.w500, color: AppColors.greyColor),
+                  style: const TextStyle(fontWeight: FontWeight.w500, color: AppColors.greyColor),
                 ),
                 Expanded(
                     child: ListView.builder(
